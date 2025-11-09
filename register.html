@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script src="script.js" defer></script>
+  <title>Register - DrugPredict</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+      color: white;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    form {
+      background: rgba(255 255 255 / 0.15);
+      padding: 38px 34px;
+      border-radius: 20px;
+      box-shadow: 0 8px 26px rgba(31, 38, 135, 0.22);
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      margin-bottom: 24px;
+      text-align: center;
+      font-weight: 700;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      color: #282c34;
+    }
+    button {
+      width: 100%;
+      background: #6e47f2;
+      border: none;
+      color: white;
+      font-size: 1.15rem;
+      padding: 14px 0;
+      border-radius: 42px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+    button:hover {
+      background: #a370ff;
+    }
+    .switch {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .switch a {
+      color: #d1d1ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    nav {
+      margin-top: 15px;
+      text-align: center;
+    }
+    nav a {
+      color: #d1d1ff;
+      text-decoration: underline;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <form id="register-form">
+    <h1>Register</h1>
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Your full name" required />
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="you@example.com" required autocomplete="email" />
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Create a password" required autocomplete="new-password" />
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" placeholder="Repeat your password" required />
+    <button type="submit">Register</button>
+    <div class="switch">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+    <nav>
+      <a href="index.html">Go back to Main</a>
+    </nav>
+  </form>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', e=>{
+      e.preventDefault();
+      const name = e.target.name.value.trim();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value;
+      const confirmPassword = e.target['confirm-password'].value;
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+      if (name && email && password) {
+        alert(`Registered successfully as: ${name}\n(This is demo, no backend)`);
+        window.location.href = 'login.html';
+      } else {
+        alert("Please fill in all fields.");
+      }
+    });
+  </script>
+</body>
+</html>

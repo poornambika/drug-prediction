@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="script.js" defer></script>
+<title>DrugPredict - Main Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Google Fonts for style -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #7b2ff2, #f357a8);
+    color: #fff;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    font-size: 2.7rem;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+  .cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  .card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    width: 280px;
+    padding: 30px 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.3);
+  }
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 6px #0008);
+  }
+  .card-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .card-desc {
+    font-size: 1rem;
+    color: #ddd;
+  }
+  /* Responsive */
+  @media(max-width: 950px){
+    .cards-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Welcome to Molecular Drug Discovery Prediction System</h1>
+<div class="cards-wrapper">
+  <!-- Card for Home -->
+  <div class="card" onclick="location.href='home.html'">
+    <div class="card-icon">🏠</div>
+    <div class="card-title">Home</div>
+    <div class="card-desc">Overview and features of the platform</div>
+  </div>
+  <!-- Card for Predict Drugs -->
+  <div class="card" onclick="location.href='predict.html'">
+    <div class="card-icon">🔬</div>
+    <div class="card-title">Predict Drugs</div>
+    <div class="card-desc">Input molecular properties to get predictions</div>
+  </div>
+  <!-- Card for View History -->
+  <div class="card" onclick="location.href='history.html'">
+    <div class="card-icon">📜</div>
+    <div class="card-title">View History</div>
+    <div class="card-desc">Review past prediction results</div>
+  </div>
+  <!-- Card for About Project -->
+  <div class="card" onclick="location.href='about.html'">
+    <div class="card-icon">🧪</div>
+    <div class="card-title">About Project</div>
+    <div class="card-desc">Learn about AI models and datasets</div>
+  </div>
+  <!-- Card for Contact Support -->
+  <div class="card" onclick="location.href='contact.html'">
+    <div class="card-icon">💬</div>
+    <div class="card-title">Contact Support</div>
+    <div class="card-desc">Get help or send feedback</div>
+  </div>
+  <!-- Card for Login -->
+  <div class="card" onclick="location.href='login.html'">
+    <div class="card-icon">🔑</div>
+    <div class="card-title">Login</div>
+    <div class="card-desc">Access your account</div>
+  </div>
+  <!-- Card for Register -->
+  <div class="card" onclick="location.href='register.html'">
+    <div class="card-icon">📝</div>
+    <div class="card-title">Register</div>
+    <div class="card-desc">Create a new account</div>
+  </div>
+</div>
+
+</body>
+</html>

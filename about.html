@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="script.js" defer></script>
+  <title>About - DrugPredict</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+      color: #f5f6fa;
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    p {
+      max-width: 900px;
+      margin: 0 auto 25px auto;
+      font-size: 1.1rem;
+      line-height: 1.7rem;
+      text-align: justify;
+      color: #e8ecff;
+    }
+
+    section {
+      margin: 50px auto;
+      max-width: 1000px;
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8rem;
+    }
+
+    ul li::before {
+      content: "•";
+      color: #ffb8eb;
+      margin-right: 12px;
+      font-size: 1.2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .feature-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+    }
+
+    nav {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: underline;
+      font-weight: 600;
+      margin: 0 12px;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 20px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>About DrugPredict</h1>
+
+  <section>
+    <h2>Our Mission</h2>
+    <p>
+      DrugPredict is a cutting-edge AI-powered drug discovery platform designed to accelerate biomedical research and molecular innovation. Our mission is to bridge the gap between data-driven computation and laboratory experimentation by predicting bioactivity and drug-likeness properties of potential drug molecules with high accuracy and interpretability.
+    </p>
+  </section>
+
+  <section>
+    <h2>What We Do</h2>
+    <p>
+      The platform leverages advanced machine learning algorithms and curated chemical databases like ChEMBL to evaluate candidate compounds. By analyzing molecular descriptors such as Molecular Weight, LogP, Hydrogen Bond Donors/Acceptors, Rotatable Bonds, and Topological Polar Surface Area (TPSA), DrugPredict helps scientists estimate drug-likeness and optimize chemical design before physical synthesis.
+    </p>
+  </section>
+
+  <section>
+    <h2>Technology Stack</h2>
+    <ul>
+      <li>Frontend: HTML5, CSS3, JavaScript (space for visualization and results display)</li>
+      <li>Backend: Python (Flask/FastAPI) integrated with AI model APIs</li>
+      <li>Machine Learning Models: XGBoost, Deep Neural Networks, Random Forests</li>
+      <li>Database Sources: ChEMBL Bioactivity, PubChem molecular datasets</li>
+      <li>Molecular Visualization: RDKit, Plotly, and 3D molecular render tools</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Core Features</h2>
+    <div class="features-grid">
+      <div class="feature-box">
+        <h3>Predictive Modeling</h3>
+        <p>Accurately predict drug-likeness and potential bioactivity using AI models trained on large molecular datasets.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Interactive Visualization</h3>
+        <p>Visualize chemical structures, molecular fingerprints, and similarity maps in a user-friendly interface.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Research Insights</h3>
+        <p>Instantly gain insights into compound structure-performance relationships through model explanations and descriptors.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Data-Driven Discovery</h3>
+        <p>Reduce dependency on expensive wet-lab testing and focus on computational hypothesis validation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How It Works</h2>
+    <p>
+      1. Upload or draw your molecular compound.<br>
+      2. Our AI pipeline extracts chemical descriptors and fingerprints.<br>
+      3. Predictive models analyze the molecule’s potential biological activity.<br>
+      4. Results are visualized and interpreted through advanced data visualization and model explainers (e.g., SHAP, feature importance analysis).<br>
+    </p>
+  </section>
+
+  <section>
+    <h2>Why Choose DrugPredict?</h2>
+    <ul>
+      <li>Brings AI-driven precision to early-stage drug discovery</li>
+      <li>Open-access for students, researchers, and pharmacologists</li>
+      <li>Supports interdisciplinary collaboration across data science, biology, and chemistry</li>
+      <li>Continuously updated with new datasets and model improvements</li>
+    </ul>
+  </section>
+
+  <nav>
+    <a href="index.html">Back to Main</a>
+  </nav>
+
+</body>
+</html>

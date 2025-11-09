@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script src="script.js" defer></script>
+  <title>Prediction History - Molecular Drug Discovery Prediction System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+      color: white;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255 255 255 / 0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      color: white;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255 255 255 / 0.3);
+    }
+    th {
+      background: rgba(255 255 255 / 0.24);
+      font-weight: 600;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .no-data {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    nav a {
+      color: #a6ecff;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 10px;
+      font-size: 1.1rem;
+    }
+    nav a:hover {
+      text-decoration: underline;
+      color: #cef7ff;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+
+  <h1>Prediction History</h1>
+  <table id="history-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Date & Time</th><th>Mol. Weight</th><th>LogP</th><th>HBD</th><th>HBA</th><th>Rotatable Bonds</th><th>TPSA</th><th>Prediction</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="no-data" id="no-data" style="display:none;">No prediction history found. Try predicting some molecules on the Predict page.</div>
+  
+  <script>
+    const tableBody = document.querySelector('#history-table tbody');
+    const noDataDiv = document.getElementById('no-data');
+    const history = JSON.parse(localStorage.getItem('predictionHistory') || '[]').reverse();
+
+    if(!history.length) {
+      tableBody.style.display = 'none';
+      noDataDiv.style.display = 'block';
+    } else {
+      noDataDiv.style.display = 'none';
+      tableBody.style.display = 'table-row-group';
+      history.forEach((entry, index) => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${entry.date}</td>
+          <td>${entry.mw}</td>
+          <td>${entry.logp}</td>
+          <td>${entry.hbd}</td>
+          <td>${entry.hba}</td>
+          <td>${entry.rot}</td>
+          <td>${entry.tpsa}</td>
+          <td>${entry.output}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+<nav>
+    <a href="index.html">Go back to Main</a>
+    
+  </nav>
+</html>

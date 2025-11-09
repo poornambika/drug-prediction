@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="script.js" defer></script>
+<title>Predict - Molecular Drug Discovery Prediction System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary-gradient: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+    --bg-overlay: rgba(20,28,51,0.8);
+    --card-bg: rgba(255, 255, 255, 0.13);
+    --text-color: rgba(251,255,254,0.8);
+    --result-bg: rgba(22, 77, 70, 0.22);
+    font-family: 'Lato', serif;
+  }
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    min-height: 100vh;
+    background: var(--primary-gradient);
+    color: var(--text-color);
+    overflow-x: hidden;
+  }
+  header {
+    padding: 24px 10vw 18px 10vw;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.1rem;
+    color: #eefefe;
+  }
+  main {
+    max-width: 740px;
+    margin: 0 auto 60px;
+    padding: 28px 34px 44px 34px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 14px 36px rgba(0,0,0,0.28);
+    backdrop-filter: blur(4px);
+  }
+  h2, h3 {
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 1.85rem;
+    margin-bottom: 25px;
+    text-align: center;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h3.section-title {
+    font-size: 1.15rem;
+    margin: 25px 0 10px 0;
+    color: #b1f1e0cc;
+    border-bottom: 1.7px solid #1ff0b6cc;
+    padding-bottom: 6px;
+  }
+  p.guide-step {
+    margin: 15px 0 22px 0;
+    font-size: 1rem;
+    color: #bbf7f0cc;
+    letter-spacing: 0.04em;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #b5f4ebcc;
+  }
+  input[type=number] {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1.3px solid #158fff55;
+    background: #d0f8f571;
+    color: #0b2b23;
+    font-size: 1rem;
+    font-family: 'Lato', serif;
+    margin-bottom: 14px;
+    transition: border-color 0.22s ease;
+  }
+  input[type=number]:focus {
+    border-color: #12f9c588;
+    background: #ecfffcdd;
+    color: #000;
+  }
+  .example-text {
+    color: #9af5d5d1;
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 28px;
+    user-select: none;
+  }
+  button.submit-btn {
+    width: 100%;
+    padding: 16px 0;
+    margin-top: 6px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 48px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.18s ease;
+    letter-spacing: 1.6px;
+  }
+  button.submit-btn:hover {
+    background: var(--secondary-gradient);
+    transform: scale(1.07);
+    box-shadow: 0 0 22px #43f0d9a5;
+  }
+  #prediction-result {
+    margin-top: 36px;
+    background: var(--result-bg);
+    padding: 28px 26px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 1.25rem;
+    color: #91f7cc;
+    display: none;
+    line-height: 1.55;
+  }
+  .result-label {
+    font-weight: 600;
+    color: #8feee4c9;
+    margin-top: 22px;
+  }
+  .result-value {
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-bottom: 16px;
+  }
+  nav.bottom-nav {
+    margin-top: 38px;
+    text-align: center;
+  }
+  nav.bottom-nav a {
+    color: #a6ffebcc;
+    font-weight: 600;
+    font-size: 1.12rem;
+    text-decoration: none;
+    margin: 0 17px;
+    cursor: pointer;
+  }
+  nav.bottom-nav a:hover {
+    text-decoration: underline;
+    color: #cef7ff;
+  }
+
+  /* Dataset toggle button */
+  #dataset-toggle {
+    margin-top: 40px;
+    width: 100%;
+    background: var(--secondary-gradient);
+    color: #0a271f;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 1.15rem;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 44px;
+    cursor: pointer;
+    box-shadow: 0 0 18px #43f0d9a5;
+    user-select: none;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+  #dataset-toggle:hover {
+    box-shadow: 0 0 30px #78ffeaaf;
+  }
+
+  /* Dataset table */
+  #dataset-table {
+    margin-top: 28px;
+    width: 100%;
+    max-height: 440px;
+    overflow-y: auto;
+    border-collapse: collapse;
+    color: #cefffed8;
+    background: rgba(10, 40, 32, 0.35);
+    border-radius: 16px;
+    display: none;
+  }
+  #dataset-table th, #dataset-table td {
+    padding: 10px 15px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #22ffeebb;
+  }
+  #dataset-table th {
+    background: #15dba235;
+    font-weight: 700;
+  }
+  #dataset-table tr:nth-child(odd) {
+    background: #0d5b44a6;
+  }
+  #dataset-table img {
+    max-width: 42px;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<header>Molecular Drug Discovery Prediction System - Predict</header>
+
+<main>
+  <h2>How to Predict New Drug Candidates</h2>
+
+  <h3 class="section-title">Step 1: Enter Molecular Properties</h3>
+  <p class="guide-step">Provide the molecule's key properties as shown in the examples.</p>
+
+  <form id="predict-form" novalidate>
+    <label for="molecular-weight">Molecular Weight</label>
+    <input type="number" id="molecular-weight" step="0.01" min="0" max="1500" placeholder="e.g. 325.42" required />
+    <div class="example-text">Examples: 312.4 (Aspirin), 480.6 (Atorvastatin)</div>
+
+    <label for="logp">LogP (Lipophilicity)</label>
+    <input type="number" id="logp" step="0.01" min="-5" max="12" placeholder="e.g. 2.71" required />
+    <div class="example-text">Examples: 1.2 (Paracetamol), 3.1 (Ibuprofen)</div>
+
+    <label for="hbd">Hydrogen Bond Donors</label>
+    <input type="number" id="hbd" min="0" max="8" placeholder="e.g. 2" required />
+    <div class="example-text">Examples: 1 (Caffeine), 2 (Atenolol)</div>
+
+    <label for="hba">Hydrogen Bond Acceptors</label>
+    <input type="number" id="hba" min="0" max="15" placeholder="e.g. 6" required />
+    <div class="example-text">Examples: 4 (Aspirin), 6 (Enalapril)</div>
+
+    <label for="rotbonds">Rotatable Bonds</label>
+    <input type="number" id="rotbonds" min="0" max="22" placeholder="e.g. 4" required />
+    <div class="example-text">Examples: 3 (Lisinopril), 11 (Atorvastatin)</div>
+
+    <label for="tpsa">TPSA (Å²)</label>
+    <input type="number" id="tpsa" min="0" max="300" step="0.1" placeholder="e.g. 75.35" required />
+    <div class="example-text">Examples: 63.6 (Aspirin), 105.6 (Metformin)</div>
+
+    <button type="submit" class="submit-btn">Predict</button>
+  </form>
+
+  <div id="prediction-result" aria-live="polite" role="region">
+    <div class="result-label">Predicted Activity:</div>
+    <div class="result-value" id="activity"></div>
+    <div class="result-label">Confidence:</div>
+    <div class="result-value" id="confidence"></div>
+    <div class="result-label">Recommended Next Steps:</div>
+    <div class="result-value" id="next-steps"></div>
+  </div>
+
+  <button id="dataset-toggle">See Example Dataset from ChEMBL</button>
+  <nav>
+    <a href="index.html">Go back to Main</a>
+    
+  </nav>
+
+  <table id="dataset-table" aria-label="Example molecular properties from ChEMBL">
+    <thead>
+      <tr>
+        <th>Structure</th>
+        <th>Molecule Name</th>
+        <th>Molecular Weight</th>
+        <th>LogP</th>
+        <th>H-Bond Donors</th>
+        <th>H-Bond Acceptors</th>
+        <th>Rotatable Bonds</th>
+        <th>TPSA</th>
+        <th>Activity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL25?dimensions=40" alt="Aspirin" title="Aspirin"></td><td>Aspirin</td><td>180.16</td><td>1.23</td><td>1</td><td>4</td><td>2</td><td>63.6</td><td>NSAID (Active)</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL210?dimensions=40" alt="Lisinopril" title="Lisinopril"></td><td>Lisinopril</td><td>405.5</td><td>-0.97</td><td>3</td><td>7</td><td>3</td><td>116.7</td><td>Antihypertensive</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL172?dimensions=40" alt="Atorvastatin" title="Atorvastatin"></td><td>Atorvastatin</td><td>558.6</td><td>6.36</td><td>2</td><td>5</td><td>11</td><td>111.2</td><td>Lipid-lowering</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL117?dimensions=40" alt="Metformin" title="Metformin"></td><td>Metformin</td><td>129.2</td><td>-2.64</td><td>3</td><td>5</td><td>1</td><td>92</td><td>Antidiabetic</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL126?dimensions=40" alt="Ibuprofen" title="Ibuprofen"></td><td>Ibuprofen</td><td>206.29</td><td>3.5</td><td>1</td><td>2</td><td>3</td><td>37.3</td><td>NSAID (Active)</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL299?dimensions=40" alt="Captopril" title="Captopril"></td><td>Captopril</td><td>217.29</td><td>0.33</td><td>1</td><td>3</td><td>3</td><td>94.6</td><td>Antihypertensive</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL1860?dimensions=40" alt="Enalapril" title="Enalapril"></td><td>Enalapril</td><td>376.45</td><td>-1.61</td><td>3</td><td>7</td><td>4</td><td>130.7</td><td>Antihypertensive</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL1902?dimensions=40" alt="Losartan" title="Losartan"></td><td>Losartan</td><td>422.91</td><td>4.5</td><td>2</td><td>5</td><td>8</td><td>86.3</td><td>Antihypertensive</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL203?dimensions=40" alt="Simvastatin" title="Simvastatin"></td><td>Simvastatin</td><td>418.57</td><td>4.68</td><td>1</td><td>4</td><td>7</td><td>72.8</td><td>Lipid Lowering</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL112?dimensions=40" alt="Rosiglitazone" title="Rosiglitazone"></td><td>Rosiglitazone</td><td>357.44</td><td>2.63</td><td>2</td><td>3</td><td>6</td><td>86.2</td><td>Antidiabetic</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL392561?dimensions=40" alt="Celecoxib" title="Celecoxib"></td><td>Celecoxib</td><td>381.39</td><td>3.49</td><td>1</td><td>2</td><td>5</td><td>80.4</td><td>NSAID (Selective COX-2)</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL189?dimensions=40" alt="Clopidogrel" title="Clopidogrel"></td><td>Clopidogrel</td><td>321.82</td><td>2.31</td><td>0</td><td>2</td><td>6</td><td>39.3</td><td>Antiplatelet</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL1166?dimensions=40" alt="Warfarin" title="Warfarin"></td><td>Warfarin</td><td>308.33</td><td>2.7</td><td>0</td><td>4</td><td>3</td><td>69.7</td><td>Anticoagulant</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL198?dimensions=40" alt="Furosemide" title="Furosemide"></td><td>Furosemide</td><td>330.74</td><td>1.5</td><td>2</td><td>4</td><td>5</td><td>114.2</td><td>Diuretic</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL1322?dimensions=40" alt="Glipizide" title="Glipizide"></td><td>Glipizide</td><td>445.52</td><td>2.48</td><td>2</td><td>7</td><td>7</td><td>94.4</td><td>Antidiabetic</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL365059?dimensions=40" alt="Pioglitazone" title="Pioglitazone"></td><td>Pioglitazone</td><td>357.44</td><td>2.3</td><td>2</td><td>3</td><td>5</td><td>86.0</td><td>Antidiabetic</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL178?dimensions=40" alt="Naproxen" title="Naproxen"></td><td>Naproxen</td><td>230.26</td><td>3.18</td><td>1</td><td>2</td><td>3</td><td>46.0</td><td>NSAID</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL463?dimensions=40" alt="Digoxin" title="Digoxin"></td><td>Digoxin</td><td>780.94</td><td>1.15</td><td>6</td><td>14</td><td>9</td><td>176.3</td><td>Cardiac Glycoside</td></tr>
+      <tr><td><img src="https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL70?dimensions=40" alt="Theophylline" title="Theophylline"></td><td>Theophylline</td><td>180.16</td><td>0.4</td><td>1</td><td>3</td><td>1</td><td>58.3</td><td>Bronchodilator</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<script>
+  const toggleBtn = document.getElementById('dataset-toggle');
+  const dataset = document.getElementById('dataset-table');
+  toggleBtn.addEventListener('click', () => {
+    if (dataset.style.display === 'none' || dataset.style.display === '') {
+      dataset.style.display = 'table';
+      toggleBtn.textContent = 'Hide Example Dataset';
+    } else {
+      dataset.style.display = 'none';
+      toggleBtn.textContent = 'See Example Dataset from ChEMBL';
+    }
+  });
+
+  document.getElementById('predict-form').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const mw = parseFloat(document.getElementById('molecular-weight').value);
+    const logp = parseFloat(document.getElementById('logp').value);
+    const hbd = parseInt(document.getElementById('hbd').value);
+    const hba = parseInt(document.getElementById('hba').value);
+    const rot = parseInt(document.getElementById('rotbonds').value);
+    const tpsa = parseFloat(document.getElementById('tpsa').value);
+
+    let prediction, recommendation;
+
+    if (mw < 500 && logp < 5 && hbd <= 5 && hba <= 10 && rot <= 10 && tpsa < 140) {
+      prediction = "Likely Drug-like";
+      recommendation = "Proceed with in vitro assays and target validation.";
+    } else if (mw > 900 || tpsa > 250 || logp > 8) {
+      prediction = "Unfavorable - Not Drug-like";
+      recommendation = "Optimize molecule to improve drug-likeness.";
+    } else {
+      prediction = "Requires Further Review";
+      recommendation = "Check ADMET properties and re-evaluate.";
+    }
+
+    const confidence = Math.max(0, 100 - (Math.abs(mw - 375)/10 + Math.abs(logp - 2.5)*5 + Math.abs(tpsa - 75)/1.3)).toFixed(1);
+
+    document.getElementById('activity').textContent = prediction;
+    document.getElementById('confidence').textContent = confidence + "%";
+    document.getElementById('next-steps').textContent = recommendation;
+    document.getElementById('prediction-result').style.display = 'block';
+
+    let history = JSON.parse(localStorage.getItem('predictionHistory') || '[]');
+    history.push({date: new Date().toLocaleString(), mw, logp, hbd, hba, rot, tpsa, output: `${prediction} (${confidence}%)`});
+    if (history.length > 50) history.shift();
+    localStorage.setItem('predictionHistory', JSON.stringify(history));
+  });
+</script>
+
+</body>
+</html>
