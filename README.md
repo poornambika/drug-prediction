@@ -120,20 +120,24 @@ JS file can be extended to fetch predictions
 ---
 
 📂 3. Project Structure
-
-your-project/
+project-folder/
 │
-├── index.html          → Main landing page
-├── home.html           → Homepage (variation)
-├── predict.html        → Drug prediction form
-├── history.html        → Prediction history page
-├── about.html          → Project info
-├── contact.html        → Contact page
-├── login.html          → Login
-├── register.html       → Register
-└── (assets folder optional if you add images/CSS/JS)
-
-Simple. Lightweight. GitHub-friendly.
+├── index.html
+├── home.html
+├── predict.html
+├── history.html
+├── about.html
+├── contact.html
+├── login.html
+├── register.html
+│
+└── assets/
+     ├── css/
+     │    └── styles.css
+     ├── js/
+     │    └── main.js
+     └── img/
+          └── (drug icons & molecule images)
 
 
 ---
